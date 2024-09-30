@@ -99,6 +99,22 @@ model Subject {
   name     String    @unique
   teachers Teacher[]
   lessons  Lesson[]
+  topics  Topic[]
+}
+
+model Topic {
+  id  Int @id @default(autoincrement())
+  title      String
+  description      String
+  videoId     Int
+  video       Video        @relation(fields: [videoId], references: [id])
+  subjects Subject[]
+}
+
+model Video {
+  id  Int @id @default(autoincrement())
+  topics      Topic[]
+  url      String
 }
 
 model Lesson {
@@ -184,6 +200,7 @@ model Announcement {
   classId Int?
   class   Class? @relation(fields: [classId], references: [id])
 }
+
 
 enum UserSex {
   MALE
